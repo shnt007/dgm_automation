@@ -49,6 +49,7 @@ export class UsersPage extends BasePage {
         await this.page.keyboard.press('Enter')
 
         // Handling the Supervisor dropdown
+        await this.click(locator.Create.supervisor_dpdown)
         await this.type(locator.Create.supervisor_dpdown, supervisor)
         await this.page.keyboard.press('Enter')
 
@@ -135,33 +136,72 @@ export class UsersPage extends BasePage {
     }
 
 
-    async validate_User_In_Table(first_name: string) {
+    async validate_User_In_Table(first_name: string, middle_name: string | null, last_name: string) {
         const rows = this.page.locator(locator.Table.table_row);
-        await rows.first().waitFor({ state: 'visible', timeout: 5000 });
+        await rows.first().waitFor({ state: 'visible', timeout: 5000 }); // Wait for the first row to be visible
         const rowCount = await rows.count();
-        console.log(`Total rows in table: ${rowCount}`)
-
-        // await this.page.pause()
-
+        console.log(`Total rows in table: ${rowCount}`);
+    
         let isUserFound = false;
-        for (let i = 0; i < rowCount; i++) {
-            const row = rows.nth(i);
-            const cells = row.locator(locator.Table.table_cell);
-            const cellText = await cells.allTextContents();
-            console.log(`Row ${i}: ${cellText}`)
-
-            if (cellText.includes(first_name)) {
-                console.log(`Print name: ${first_name}`)
-                isUserFound = true;
-                console.log(`User found = ${isUserFound}`)
-                break;
+        let secondRowData = "";
+    
+        // Build the expected full name dynamically
+        const expectedName = [first_name.trim(), middle_name?.trim(), last_name.trim()]
+            .filter((namePart) => !!namePart) // Remove null/undefined/empty parts
+            .join(" ")
+            .toLowerCase();
+    
+        console.log(`Expected full name: ${expectedName}`);
+    
+        // Define usernames as an array of strings
+        const usernames: string[] = [];
+    
+        if (rowCount > 0) {
+            // Extract usernames from the table
+            for (let i = 0; i < rowCount; i++) {
+                const row = rows.nth(i);
+                const cells = row.locator(locator.Table.table_cell);
+                const cellText = await cells.allTextContents();
+    
+                if (cellText.length > 0) {
+                    const username = cellText[0].trim(); // Assuming the username is in the first column
+                    usernames.push(username.toLowerCase());
+                    console.log(`Row ${i + 1} username: ${username}`);
+    
+                    // Capture Row 2 data
+                    if (i === 1) {
+                        secondRowData = username; // Data from Row 2
+                        console.log(`Row 2 data captured: ${secondRowData}`);
+                    }
+                } else {
+                    console.log(`Row ${i + 1} has no visible data.`);
+                }
             }
+    
+            // Check if the expected name exists in the table
+            if (usernames.includes(expectedName)) {
+                isUserFound = true;
+                console.log(`User '${expectedName}' found in the table.`);
+            } else {
+                console.log(`User '${expectedName}' not found in the table.`);
+            }
+        } else {
+            console.log("No rows found in the table.");
         }
-
-
-        expect(isUserFound).toBeTruthy()
-        console.log(`Validation successful: User ${first_name} found.`);
+    
+        // Compare second row data with the expected full name
+        console.log(`Comparing Row 2 data with expected full name.`);
+        if (secondRowData.toLowerCase() === expectedName) {
+            console.log("Row 2 data matches the expected name.");
+        } else {
+            console.log("Row 2 data does not match the expected name.");
+        }
+    
+        console.log(`User found: ${isUserFound}`);
+    
+        // Final assertion to ensure the user was found
+        expect(isUserFound).toBe(true); // Ensure the user exists in the table
+        console.log(`Validation successful: User '${expectedName}' found and matches expected data.`);
     }
-
+    
 }
-

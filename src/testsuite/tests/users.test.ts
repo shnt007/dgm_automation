@@ -23,16 +23,29 @@ test.describe('Login', async () => {
 
     // validating successful message after creating new user
     test.only("3. Validating Successful Creating New User with valid data", async ({ }) => {
-        await userpage.Create_New_User(data.User_valid_data.first_name,
-            data.User_valid_data.middle_name,
+        // Step 1: Create a new user with valid data
+        await userpage.Create_New_User(
+            data.User_valid_data.first_name,
+            data.User_valid_data.middle_name, // This can be null or a string
             data.User_valid_data.last_name,
             data.User_valid_data.email,
             data.User_valid_data.roles,
-            data.User_valid_data.supervisor)
-        await userpage.validate_User_Creation_Success()
-        await userpage.navigate_to_user_listing_page()
-        await userpage.validate_User_In_Table(data.User_valid_data.first_name)
-    })
+            data.User_valid_data.supervisor
+        );
+    
+        // Step 2: Validate user creation success
+        await userpage.validate_User_Creation_Success();
+    
+        // Step 3: Navigate to the user listing page
+        await userpage.navigate_to_user_listing_page();
+    
+        // Step 4: Validate the created user exists in the table
+        await userpage.validate_User_In_Table(
+            data.User_valid_data.first_name,
+            data.User_valid_data.middle_name, // Pass middle_name as part of validation
+            data.User_valid_data.last_name
+        );
+    });
 
     test("4. Validating create user with invalid data", async ({ }) => {
         await userpage.Creating_User_invalid_data(data.User_invalid_data.first_name,

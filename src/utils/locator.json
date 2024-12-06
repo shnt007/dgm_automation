@@ -20,11 +20,11 @@
         "gender": "(//span[@class='ant-radio ant-wave-target'])[1]",
         "roles_dpdown": "(//div[@class='ant-form-item-control-input'])[7]",
         "role_textbar": "#roles",
-        "supervisor_dpdown": "#supervisor_name",
+        "supervisor_dpdown": "//span/input[@id='supervisor_name']",
         "cancel_btn": "(//button[@type='button'])[1]",
-        "submit_btn": "(//button[@type='button'])[2]",
+        "submit_btn": "//button/span[text()='Submit']",
         "confirmation_cancel_btn": "(//button[@type='button'])[3]",
-        "confirmation_submit_btn": "(//button[@type='button'])[4]",
+        "confirmation_submit_btn": "//button/span[text()='Confirm']",
         "back_to_user_btn": "button[type='submit']"
     },
     "Success_msg": {
