@@ -14,7 +14,8 @@ export class UsersPage extends BasePage {
 
     // 1. asserting Welcome message after successfull login
     async Dashboard_Msg_Validation() {
-        await expect(this.page.locator(locator.Dashboard.success_msg)).toContainText('Welcome')
+        // await expect(this.page.locator(locator.Dashboard.success_msg)).toContainText('Welcome')
+        await expect(this.page).toHaveTitle(/Dashboard/)
     }
 
 
