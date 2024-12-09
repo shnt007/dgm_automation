@@ -3,7 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './src/testsuite/tests',
   fullyParallel: true,
-  reporter: [['dot'], ['html']],
+  reporter: [['dot'], ['html', { open: 'never', outputFolder: 'test-results' }
+  ]],
   timeout: 30000,
 
   use: {

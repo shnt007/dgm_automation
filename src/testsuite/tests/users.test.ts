@@ -12,7 +12,7 @@ test.describe('Login', async () => {
     })
 
     //Validating user Sign in success message validation
-    test("1. Validating Login Successfully", async () => {
+    test.only("1. Validating Login Successfully", async () => {
         await userpage.Dashboard_Msg_Validation()
     })
 
