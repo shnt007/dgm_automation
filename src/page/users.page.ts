@@ -70,7 +70,6 @@ export class UsersPage extends BasePage {
 
     // async User_create_successful() {
     //     const message = await this.page.locator(locator.Success_msg.create_sucess_msg).innerText();
-    //     // console.log(message);
     //     expect(message).toContain('Created Successfully');
     // }
 
@@ -136,39 +135,39 @@ export class UsersPage extends BasePage {
             .toContainText('User Information')
     }
 
-
+    //  Validating the user name in the table after creating new user
     async validate_User_In_Table(first_name: string, middle_name: string | null, last_name: string) {
         const rows = this.page.locator(locator.Table.table_row);
         await rows.first().waitFor({ state: 'visible', timeout: 5000 }); // Wait for the first row to be visible
         const rowCount = await rows.count();
         console.log(`Total rows in table: ${rowCount}`);
-    
+
         let isUserFound = false;
         let secondRowData = "";
-    
+
         // Build the expected full name dynamically
         const expectedName = [first_name.trim(), middle_name?.trim(), last_name.trim()]
             .filter((namePart) => !!namePart) // Remove null/undefined/empty parts
             .join(" ")
             .toLowerCase();
-    
+
         console.log(`Expected full name: ${expectedName}`);
-    
+
         // Define usernames as an array of strings
         const usernames: string[] = [];
-    
+
         if (rowCount > 0) {
             // Extract usernames from the table
             for (let i = 0; i < rowCount; i++) {
                 const row = rows.nth(i);
                 const cells = row.locator(locator.Table.table_cell);
                 const cellText = await cells.allTextContents();
-    
+
                 if (cellText.length > 0) {
                     const username = cellText[0].trim(); // Assuming the username is in the first column
                     usernames.push(username.toLowerCase());
                     console.log(`Row ${i + 1} username: ${username}`);
-    
+
                     // Capture Row 2 data
                     if (i === 1) {
                         secondRowData = username; // Data from Row 2
@@ -178,7 +177,7 @@ export class UsersPage extends BasePage {
                     console.log(`Row ${i + 1} has no visible data.`);
                 }
             }
-    
+
             // Check if the expected name exists in the table
             if (usernames.includes(expectedName)) {
                 isUserFound = true;
@@ -189,7 +188,7 @@ export class UsersPage extends BasePage {
         } else {
             console.log("No rows found in the table.");
         }
-    
+
         // Compare second row data with the expected full name
         console.log(`Comparing Row 2 data with expected full name.`);
         if (secondRowData.toLowerCase() === expectedName) {
@@ -197,12 +196,12 @@ export class UsersPage extends BasePage {
         } else {
             console.log("Row 2 data does not match the expected name.");
         }
-    
+
         console.log(`User found: ${isUserFound}`);
-    
+
         // Final assertion to ensure the user was found
         expect(isUserFound).toBe(true); // Ensure the user exists in the table
         console.log(`Validation successful: User '${expectedName}' found and matches expected data.`);
     }
-    
+
 }
