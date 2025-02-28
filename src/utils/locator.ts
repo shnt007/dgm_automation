@@ -84,3 +84,44 @@ export const display_details_Locator = {
     role_detail: "(//div[@class='flex gap-1 col-span-2'])[7]",
     supervisor_detail: "(//div[@class='flex gap-1 col-span-2'])[8]"
 }
+
+export const grievance_page_nav = {
+    grievance_nav: "//a[contains(text(), 'Grievance')]",
+    grievance_title_validation: "//h3[text()='Grievances']"
+}
+
+export const create_grievance = {
+    add_grievance_btn : "(//button[@type='button'])[1]",
+    grievance_add_page_validation: "//h3[text()='Add Grievance']",
+    fullname: "#full_name",
+    gender_btn: "#gender",
+    gender_male: "//div[@title='Male']",
+    contact_num: "input[id='contact']",
+    email: "input[id='email']",
+    province_btn: "input[id='province_code']",
+    province_koshi: "//div[@title='Bagmati Pradesh']",
+    district_btn: "//span[@title='District']",
+    district_kathmandu: "//div[@title='Kathmandu']",
+    municaipality_btn: "//span[@title='Municipality']",
+    municipality_kirtipur: "//div[@title='Kirtipur Municipality']",
+    ward_btn: "//label[normalize-space(text())='Ward No']/following::div[contains(@class,'ant-select-selector')][1]",
+    ward_six: "//div[@title='6']",
+    address_btn: "[id='address']",
+    grievance_title: "[id=title]",
+    grievance_date_picker: "[id=received_date]",
+    grievance_selected_date: "td[title='2025-02-18']",
+    report_grievance_field: "[id='report_method']",
+    report_type_letter: "//div[@title='Letter']",
+    grievance_type_btn: "[id='type']",
+    grievance_type_social: "//div[@title='Social']",
+    file_upload: "input[id='documents']",
+    description: "[id='description']",
+    submit_btn: "[class='ant-btn css-11210is ant-btn-primary ant-btn-lg form-btn primary-btn']",
+    confirm_btn: "[class='ant-btn css-11210is ant-btn-primary primary-btn']",
+    back_to_grievance_btn: "[class='ant-btn css-11210is ant-btn-default form-success-modal-btn border border-primary-green !m-0 !mt-8']",
+    new_grievance_created_validation: "//tr[.//div[@data-cell='S.N.' and .//span[normalize-space()='1']]]//div[@data-cell='Title']/span"
+
+
+
+}
+
