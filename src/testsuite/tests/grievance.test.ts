@@ -43,7 +43,17 @@ test.describe('Login',() => {
                 valid_grievance_data.description   
 
                 )
-            
         })
+
+        test("4. Grievance creation with required fields only", async ({ page }) => {
+            await creategrievance.create_new_grievance_with_required_field(page,       
+                valid_grievance_data.title,
+                valid_grievance_data.date,
+
+                )    
+        })
+
+        
+        
 
  })

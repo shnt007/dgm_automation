@@ -69,3 +69,20 @@ export async function create_new_grievance( page: Page,
     await expect(displayedName.trim()).toBe('Automation-Test');
     console.log("Grievance created successfully");
 }
+
+export async function create_new_grievance_with_required_field( page: Page,
+    grievance_title: string,
+    grievance_received_date: string,
+){
+    await page.click(grievance_page_nav.grievance_nav)
+    await page.click(create_grievance.add_grievance_btn)
+    await page.fill(create_grievance.grievance_title,grievance_title)
+    await page.click(create_grievance.grievance_date_picker)
+    await page.click(create_grievance.grievance_selected_date)
+    await page.click(create_grievance.submit_btn)
+    await page.click(create_grievance.confirm_btn);
+    await page.click(create_grievance.back_to_grievance_btn);
+    const displayedName = await page.locator(create_grievance.new_grievance_created_validation).innerText();
+    await expect(displayedName.trim()).toBe('Automation-Test');
+    console.log("Grievance created successfully");
+}
