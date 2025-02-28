@@ -1,9 +1,9 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './src/testsuite/tests',
   fullyParallel: true,
-  reporter: [['dot'], ['html', { open: 'never', outputFolder: 'test-results' }
+  reporter: [['list'], ['monocart-reporter', { open: 'never', outputFile:'test-results/index.html'}
   ]],
   timeout: 30000,
 
@@ -11,9 +11,9 @@ export default defineConfig({
     baseURL: 'https://dgm-mis-stage.k8s.yipl.com.np',
     viewport: null,
     headless: false,
-    // viewport: { width: 1290, height: 768 },
+    // viewport: { width: 1366, height: 944 },
 
-    screenshot: 'on',
+    screenshot: 'only-on-failure',
     video: 'off',
     trace: 'on-first-retry',
   },

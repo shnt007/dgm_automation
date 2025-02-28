@@ -2,11 +2,12 @@ import { UsersPage } from "../../page/users.page"
 import { test } from "@playwright/test"
 import * as data from "../data/credentials.json"
 
-test.describe('Login', async () => {
+
+test.describe('Login',() => {
     let userpage: UsersPage
-    test.beforeEach(async ({ page, baseURL }) => {
+    test.beforeEach(async ({ page }) => {
         userpage = new UsersPage(page)
-        await userpage.navigateTo(`${baseURL}/login`)
+        await userpage.navigateTo('login')
         await userpage.Login(data.LoginCredentails.superAdmin, data.LoginCredentails.password)
 
     })
@@ -46,7 +47,12 @@ test.describe('Login', async () => {
 
     // creating user without any input data
     test("5. Validating Create User without data", async ({ }) => {
-        await userpage.Creating_User_invalid_data(data.User_without_data.first_name, data.User_without_data.middle_name, data.User_without_data.last_name, data.User_without_data.email, data.User_without_data.roles, data.User_without_data.supervisor)
+        await userpage.Creating_User_invalid_data(data.User_without_data.first_name,
+            data.User_without_data.middle_name,
+            data.User_without_data.last_name,
+            data.User_without_data.email,
+            data.User_without_data.roles,
+            data.User_without_data.supervisor)
         await userpage.create_user_without_data()
     })
 
@@ -61,5 +67,15 @@ test.describe('Login', async () => {
         await userpage.user_table_handling()
     })
 
+    test("8. Editing the listed user", async ({ }) => {
+        await userpage.validating_edit_user()
+    })
+
+    test("9. Validating the details of new created user", async ({ }) => {
+        await userpage.validating_display_detail(data.User_valid_data.email)
+    })
 
 })
+
+
+

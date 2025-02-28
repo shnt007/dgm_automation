@@ -55,5 +55,22 @@
     },
     "User_info": {
         "user_info_title": "h2[class*='rounded-tl-3xl']"
+    },
+    "edit_user": {
+        "edit_btn": "(//button[@title='Edit'])[1]",
+        "edit_form": "form[class*='ant-form']",
+        "first_name_edit": "#first_name",
+        "email_edit": "#email"
+    },
+    "display_details": {
+        "details_first_row": "tr[class*='ant-table-row']:nth-child(1)",
+        "fist_name_detail": "p[title='Raam']",
+        "middle_name_detail": "(//div[@class='flex gap-1 col-span-2'])[2]",
+        "last_name_detail": "(//div[@class='flex gap-1 col-span-2'])[3]",
+        "gender_detail": "(//div[@class='flex gap-1 col-span-2'])[4]",
+        "email_detail": "(//div[@class='flex gap-1 col-span-2'])[5]",
+        "status_detail": "(//div[@class='flex gap-1 col-span-2'])[6]",
+        "role_detail": "(//div[@class='flex gap-1 col-span-2'])[7]",
+        "supervisor_detail": "(//div[@class='flex gap-1 col-span-2'])[8]"
     }
 }

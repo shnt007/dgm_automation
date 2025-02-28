@@ -2,10 +2,13 @@ import { Page, expect } from "@playwright/test"
 import * as locator from "../utils/locator.json"
 import { BasePage } from "../base/basepage"
 
+
 export class UsersPage extends BasePage {
     constructor(page: Page) {
         super(page)
     }
+
+    // Login in with the system as superadmin
     async Login(email: string, password: string) {
         await this.type(locator.LoginPage.email, email)
         await this.type(locator.LoginPage.password, password)
@@ -59,10 +62,10 @@ export class UsersPage extends BasePage {
 
     // 3. assertion on the user create successful message
     async validate_User_Creation_Success() {
-        const successMessage = await this.page.locator(locator.Success_msg.create_sucess_msg);
+        const successMessage = this.page.locator(locator.Success_msg.create_sucess_msg);
         await successMessage.waitFor({ state: 'visible', timeout: 10000 });
         await expect(successMessage).toBeVisible();
-        console.log(await successMessage.innerText());
+        // console.log(await successMessage.innerText());
     }
 
     // OR
@@ -135,7 +138,7 @@ export class UsersPage extends BasePage {
             .toContainText('User Information')
     }
 
-
+    //8. validaing the name with the newly created user
     async validate_User_In_Table(first_name: string) {
         const rows = this.page.locator(locator.Table.table_row);
         await rows.first().waitFor({ state: 'visible', timeout: 5000 });
@@ -164,5 +167,35 @@ export class UsersPage extends BasePage {
         console.log(`Validation successful: User ${first_name} found.`);
     }
 
+    // 9. Validating edit form with previous data
+    async validating_edit_user() {
+        await this.click(locator.Users.users_locator)
+        await this.page.click(locator.edit_user.edit_btn)
+        await expect(this.page).toHaveTitle(/Edit User/)
+        await this.page.waitForSelector(locator.edit_user.edit_form)
+
+        // Validate the name and email fields contain the expected data
+        await expect(this.page.locator(locator.edit_user.first_name_edit)).toHaveValue('User');
+        await expect(this.page.locator(locator.edit_user.email_edit)).toHaveValue('subash.gole@test.com');
+    }
+
+    // 10. Validating the detailed page
+    async validating_display_detail(email: string) {
+        await this.click(locator.Users.users_locator)
+        await this.page.click(locator.display_details.details_first_row)
+        await expect(this.page).toHaveTitle(/User Profile/)
+
+        //validating the previous data
+        // await expect(locator.edit_user.first_name_edit).toBe(first_name)
+        const firstRowEmail = await this.page.locator(locator.display_details.email_detail).textContent()
+        expect(firstRowEmail?.trim()).toBe(email)
+        console.log(`Validated that the email "${email}" is correctly displayed in the first row.`)
+
+
+
+    }
+
 }
+
+
 

@@ -22,6 +22,7 @@ export class BasePage {
 
 
 
+
     // async searchInTable(value: string): Promise<number | null> {
     //     const rows = this.table.locator(locator.Users.user_table); // Adjust for table rows
     //     const rowCount = await rows.count();
@@ -60,3 +61,4 @@ export class BasePage {
 
 
 }
+
