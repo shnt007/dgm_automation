@@ -109,7 +109,8 @@ export const create_grievance = {
     address_btn: "[id='address']",
     grievance_title: "[id=title]",
     grievance_date_picker: "[id=received_date]",
-    grievance_selected_date: "td[title='2025-02-18']",
+    grievance_selected_date: "td[title='2025-03-01']",
+    grievance_future_date: "td[title='2025-03-20']",
     report_grievance_field: "[id='report_method']",
     report_type_letter: "//div[@title='Letter']",
     grievance_type_btn: "[id='type']",
@@ -117,10 +118,33 @@ export const create_grievance = {
     file_upload: "input[id='documents']",
     description: "[id='description']",
     submit_btn: "[class='ant-btn css-11210is ant-btn-primary ant-btn-lg form-btn primary-btn']",
+    submit_confirmation_popup_box: "[class='ant-modal-header']",
     confirm_btn: "[class='ant-btn css-11210is ant-btn-primary primary-btn']",
     back_to_grievance_btn: "[class='ant-btn css-11210is ant-btn-default form-success-modal-btn border border-primary-green !m-0 !mt-8']",
-    new_grievance_created_validation: "//tr[.//div[@data-cell='S.N.' and .//span[normalize-space()='1']]]//div[@data-cell='Title']/span"
+    new_grievance_created_validation: "//tr[.//div[@data-cell='S.N.' and .//span[normalize-space()='1']]]//div[@data-cell='Title']/span",
+    grievance_title_required_message: "[id='title_help']",
+    girevance_date_required_message: "[id='received_date_help']",
+    grievance_date_toast_message_validation: "[class='ant-message-notice ant-message-notice-error']",
+    girveance_file_upload_validation: "[id='documents_help']",
+    alter_submit_btn: "//div/button[@class='ant-btn css-11210is ant-btn-primary ant-btn-lg form-btn primary-btn']",
+    complainant_name_validation: "//tr[.//div[@data-cell='S.N.' and .//span[normalize-space()='1']]]//div[@data-cell='Complainant Name']/span",
+    
+    
 
+
+}
+
+export const grievance_listing_page = {
+    delete_grievance_btn: "//tr[.//div[@data-cell='S.N.']/span[normalize-space()='1']]//button[@title='Delete']",
+    edit_girevance_btn: "//tr[.//div[@data-cell='S.N.']/span[normalize-space()='1']]//button[@title='Edit']",
+    confirm_btn: "[class='ant-btn css-11210is ant-btn-primary primary-btn']",
+    grievance_deleted_success_toast_message: "[class='ant-message-notice ant-message-notice-success']",
+    first_data: "//tr[.//div[@data-cell='S.N.' and .//span[normalize-space()='1']]]",
+    note_click_btn: "button[title='Open Notes']",
+    add_note_btn: "[class='bg-[#e8faf0] py-4 px-10 mx-6 text-primary-green text-lg font-bold hover:bg-[#dcf5e7]']",
+    note_add_description_box: "[class='ant-input css-11210is ant-input-outlined my-4']",
+    note_submit_btn: "//button/span[text()='Submit']",
+    toast_message_validation: "[class='ant-message-notice-content']"
 
 
 }

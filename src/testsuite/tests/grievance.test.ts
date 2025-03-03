@@ -3,6 +3,7 @@ import { test } from "@playwright/test"
 import * as data from "../data/credentials.json"
 import * as creategrievance from "../../page/grievance.page"
 import { valid_grievance_data } from "../data/data"
+import { edited_grivance_data } from "../data/data"
 
 
 test.describe('Login',() => {
@@ -51,6 +52,56 @@ test.describe('Login',() => {
                 valid_grievance_data.date,
 
                 )    
+        })
+
+        test("5. Grievance creation without required fields", async ({ page }) => {
+            await creategrievance.create_new_grievance_without_required_field(
+                page,
+                valid_grievance_data.title
+            )
+        })
+
+        test("6. Grievance received date required validation", async ({ page }) => {
+            await creategrievance.create_new_grievance_without_girevance_date(
+                page,
+                valid_grievance_data.title
+            )
+        })
+
+        test("7. Grievance creation with future date", async ({ page }) => {
+            await creategrievance.create_new_grievance_with_future_date(
+                page,
+                valid_grievance_data.date
+            )
+        })
+
+        test("8. Grievance creation with large size data", async ({ page }) => {
+            await creategrievance.create_new_grievance_with_large_file(
+                page,
+                valid_grievance_data.title,
+                valid_grievance_data.date,
+                valid_grievance_data.large_file_path
+            )
+        })
+
+        test("9. Delete grievance", async ({ page }) => {
+            await creategrievance.delete_grievance(
+                page
+            )
+        })
+
+        test("10. Edit Grievance", async ({ page }) => {
+            await creategrievance.edit_grievance(page,
+                valid_grievance_data.edited_fullname 
+            
+            )
+        })
+        
+        test("11. add note in the single girevance", async ({ page }) => {
+            await creategrievance.add_note(
+                page,
+                valid_grievance_data.note_description
+            )
         })
 
         
